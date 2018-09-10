@@ -97,13 +97,15 @@ open class LinearProgressView: UIView {
         self.layoutMargins = .zero
     }
     
-    open func setProgress(_ value: Float, animated: Bool) {
+	open func setProgress(_ value: Float, animated: Bool, completion: (() -> Void)? = nil ) {
         self.progress = value
         
         if animated {
-            UIView.animate(withDuration: animationDuration, animations: {
-                self.layoutIfNeeded()
-            })
+			UIView.animate(withDuration: animationDuration, animations: {
+				self.layoutIfNeeded()
+			}) { (success) in
+				completion?()
+			}
         }
     }
     
